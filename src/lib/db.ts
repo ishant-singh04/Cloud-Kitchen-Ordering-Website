@@ -42,6 +42,10 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
         console.log('MongoDB connected successfully.');
         return m;
       } catch (err: any) {
+        if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+          console.error('MongoDB connection failed in cloud/production environment:', err?.message);
+          throw err;
+        }
         console.warn('Initial MongoDB connection failed. Attempting MongoMemoryServer fallback for local testing...', err?.message);
         try {
           // Dynamic import of mongodb-memory-server if installed

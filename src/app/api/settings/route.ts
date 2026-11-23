@@ -3,6 +3,8 @@ import { connectToDatabase } from '@/lib/db';
 import RestaurantSettings from '@/models/RestaurantSettings';
 import { getAuthUserFromRequest } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     await connectToDatabase();
